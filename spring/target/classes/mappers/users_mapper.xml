@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- users_mapper.xml -->
+<mapper namespace="UserDAO">
+	<select id="getUserList" resultType="user" parameterType="user">
+		select id, password, name, role
+		from users
+		<where>
+			<if test="id != null and id != '' ">
+				id like '%' || #{id} || '%'
+			</if>
+			<if test="name != null and name != '' ">
+				and name like '%' || #{name} || '%'
+			</if>
+		</where>
+	</select>
+	<select id="getUser" parameterType="user" resultType="user">
+		select id,
+		password, name, role, profile
+		from users
+		where id=#{id}
+	</select>
+	<select id="getUserListMap" parameterType="user"
+		resultType="map">
+		select id "id",
+		password "password",
+		name "name",
+		role "role"
+		from users
+	</select>
+
+	<!-- 등록 -->
+	<insert id="insertUser" parameterType="user">
+		insert into users (
+		id,
+		password,
+		name,
+		<if test="profile != null and profile != ''">
+			profile,
+		</if>
+		role
+		)
+		values (
+		#{id},
+		#{password},
+		#{name},
+		<if test="profile != null and profile != ''">
+			#{profile},
+		</if>
+		#{role}
+		)
+	</insert>
+
+	<!-- 수정 -->
+	<update id="updateUser" parameterType="user">
+		update users set
+		password =
+		#{password},
+		name = #{name},
+		<if test="profile != null and profile != ''">
+			profile = #{profile},
+		</if>
+		role = #{role}
+		where id = #{id}
+	</update>
+
+	<!-- 삭제 -->
+	<delete id="deleteUser" parameterType="user">
+		delete from users
+		where id
+		= #{id}
+	</delete>
+
+</mapper>

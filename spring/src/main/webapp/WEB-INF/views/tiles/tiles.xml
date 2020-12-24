@@ -1,0 +1,18 @@
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+ 
+<tiles-definitions>
+	<!-- name="*" : 모든 return에 지정 -->
+    <definition name="*" template="/WEB-INF/views/layout/base.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/layout/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp" />
+	</definition>
+	
+    <definition name="admin/*" template="/WEB-INF/views/layout/admin.jsp">
+		<put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
+	</definition>
+	
+	<!-- <definition name="admin/*/*" template="/WEB-INF/views/layout/admin.jsp">
+      <put-attribute name="body" value="/WEB-INF/views/{1}/{2].jsp" />
+    </definition> -->
+</tiles-definitions>
