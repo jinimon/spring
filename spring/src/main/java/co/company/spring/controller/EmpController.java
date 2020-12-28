@@ -16,32 +16,32 @@ import org.springframework.web.servlet.ModelAndView;
 
 import co.company.spring.dao.Departments;
 import co.company.spring.dao.Emp;
-import co.company.spring.dao.EmpMapper;
 import co.company.spring.dao.EmpSearch;
 import co.company.spring.dao.Jobs;
+import co.company.spring.emp.service.EmpService;
 
 @Controller // 컨트롤러화
 public class EmpController {
 
 	@Autowired
-	EmpMapper dao;
+	EmpService service;
 
 	@ModelAttribute("jobs")
 	public List<Jobs> jobSelect2() {
-		return dao.jobSelect();
+		return service.jobSelect();
 		// 그냥 컨트롤일 경우는 model을 넘겨줬다.
 	}
 	
 
 	@ModelAttribute("departments")
 	public List<Departments> depts() {
-		return dao.deptSelect();
+		return service.deptSelect();
 	}
 
 	@RequestMapping("/ajax/jobSelect")
 	@ResponseBody // 그냥 컨트롤일 경우는 json으로 넘겨주기 위해 필요하다.
 	public List<Jobs> jobSelect() {
-		return dao.jobSelect();
+		return service.jobSelect();
 		// 그냥 컨트롤일 경우는 model을 넘겨줬다.
 	}
 	
@@ -53,7 +53,7 @@ public class EmpController {
 		ModelAndView mav = new ModelAndView(); // 객체 생성
 		// db에서 전체 사원정보 조회
 		// emp 대신 null 넣어주면 전체 조회
-		mav.addObject("list", dao.getEmpList(emp));
+		mav.addObject("list", service.getEmpList(emp));
 		mav.setViewName("emp/select");
 
 //		return "emp/select";
@@ -64,8 +64,8 @@ public class EmpController {
 	// 1. 등록 페이지로 이동
 	// Model을 이용해서 view 페이지에 넘겨줄 값을 저장한다.
 	public String insertForm(Model model, Emp emp) {
-//		model.addAttribute("jobs", dao.jobSelect());
-//		model.addAttribute("departments", dao.deptSelect());
+//		model.addAttribute("jobs", service.jobSelect());
+//		model.addAttribute("departments", service.deptSelect());
 		return "emp/insert"; // return 앞에 아무것도 없으면 forward 방식(default)
 	}
 
@@ -81,9 +81,9 @@ public class EmpController {
 		
 		// 에러 없으면 아래 정상 수행
 		if (emp.getEmployeeId() == null)
-			dao.insertEmp(emp);
+			service.insertEmp(emp);
 		else
-			dao.updateEmp(emp);
+			service.updateEmp(emp);
 //		return "redirect:/empSelect";
 //		request.setAttribute("emp", emp);	// 이거 안해줘도됨
 		return "emp/insertOutput";
@@ -91,9 +91,9 @@ public class EmpController {
 
 	@GetMapping("/empUpdateForm")
 	public String updateForm(Model model, Emp emp) {
-		model.addAttribute("emp", dao.getEmp(emp)); // 단건 조회
-//		model.addAttribute("jobs", dao.jobSelect());
-//		model.addAttribute("departments", dao.deptSelect());
+		model.addAttribute("emp", service.getEmp(emp)); // 단건 조회
+//		model.addAttribute("jobs", service.jobSelect());
+//		model.addAttribute("departments", service.deptSelect());
 
 		return "emp/insert";
 	}
