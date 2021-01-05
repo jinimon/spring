@@ -13,5 +13,6 @@
 		<input name="password" placeholder="password"><br>
 		<button>로그인</button>
 	</form>
+	<a href="${kakao_url}">카카오 로그인</a>
 </body>
 </html>
