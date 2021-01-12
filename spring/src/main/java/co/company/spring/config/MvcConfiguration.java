@@ -15,6 +15,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+import org.springframework.web.servlet.view.BeanNameViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import co.company.spring.common.AuthCheckInterceptor;
@@ -106,5 +107,12 @@ public class MvcConfiguration implements WebMvcConfigurer {
 		// setUploadTempDir : 이거 생략하면 각각 가지고 있는 임시폴더에 저장.
 		multi.setMaxUploadSize(1024*10000);	// 10MB
 		return multi;
+	}
+	
+	@Bean
+	BeanNameViewResolver beanNameViewResolver() {
+		BeanNameViewResolver bean = new BeanNameViewResolver();
+		bean.setOrder(1);
+		return bean;
 	}
 }
