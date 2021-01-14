@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 7.2.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="emp2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="347c874b-13a6-4566-8162-8f6f306e2257">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="hr"/>
+	<parameter name="P_DEPARTMENT_ID" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select employee_id "employee_id",
+first_name, last_name, email, salary
+from employees
+where department_id = $P{P_DEPARTMENT_ID} 
+order by employee_id]]>
+	</queryString>
+	<field name="employee_id" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="employee_id"/>
+	</field>
+	<field name="FIRST_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="FIRST_NAME"/>
+	</field>
+	<field name="LAST_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="LAST_NAME"/>
+	</field>
+	<field name="EMAIL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="EMAIL"/>
+	</field>
+	<field name="SALARY" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SALARY"/>
+	</field>
+	<variable name="sum_sal" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{SALARY}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="227" y="24" width="100" height="30" uuid="390a5e10-fa2f-4f16-bcf4-6ac4bc1ec118"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[PDF 예제]]></text>
+			</staticText>
+			<line>
+				<reportElement x="141" y="66" width="276" height="1" uuid="7d33df93-848a-47d3-9653-53903f85cd04"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="90" height="30" forecolor="#589FFC" uuid="00981dd3-bcad-40d3-b3e5-b007c289816c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{employee_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="0" width="230" height="30" uuid="f08f7a77-8576-41d3-a280-ed9181044faa"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FIRST_NAME}.concat(" ").concat($F{LAST_NAME}).toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="320" y="0" width="138" height="30" uuid="60866ec7-803e-46dc-8e69-e5b02fc39638"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EMAIL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="458" y="0" width="100" height="30" uuid="0095abc8-c73b-49f8-86c4-cb80609f7d9d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SALARY}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="53" splitType="Stretch">
+			<textField>
+				<reportElement x="456" y="23" width="100" height="30" uuid="819c9f60-c268-4176-b5e2-a9a59a42e3dd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sum_sal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
